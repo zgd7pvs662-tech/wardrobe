@@ -1,0 +1,47 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Мои образы{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h2>Мои образы</h2>
+        <a href="{% url 'clothes:outfit_create' %}" class="btn">Создать новый образ</a>
+    </div>
+
+    {% if outfits %}
+    <div class="outfits-grid">
+        {% for outfit in outfits %}
+        <div class="outfit-card">
+            {# --- ИЗМЕНЕНИЕ ЗДЕСЬ: Добавлена правильная ссылка --- #}
+            <a href="{% url 'clothes:outfit_detail' outfit.pk %}">
+                <div class="outfit-card__images">
+                    {% for item in outfit.items.all|slice:":4" %}
+                    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="outfit-card__image-item">
+                    {% empty %}
+                    <div class="outfit-card__image-placeholder"></div>
+                    {% endfor %}
+                </div>
+            </a>
+            <div class="outfit-card__body">
+                <h3 class="outfit-card__name">{{ outfit.name }}</h3>
+                <div class="outfit-card__footer">
+                    <span class="outfit-card__item-count">{{ outfit.items.count }} вещ(ей)</span>
+                    <a href="{% url 'clothes:outfit_delete' outfit.pk %}" class="card-action-btn">Удалить</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="main-content-form">
+        <div class="form-container-minimal confirmation-box">
+            <h3>У вас пока нет ни одного образа</h3>
+            <p>Начните с создания своего первого образа, чтобы увидеть его здесь.</p>
+            <a href="{% url 'clothes:outfit_create' %}" class="btn">Создать первый образ</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

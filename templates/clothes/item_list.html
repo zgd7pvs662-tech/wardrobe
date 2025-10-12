@@ -1,0 +1,62 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Мой гардероб{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h2>Мой гардероб</h2>
+        <a href="{% url 'clothes:item_create' %}" class="btn">Добавить новую вещь</a>
+    </div>
+
+    <div class="filters">
+        <button class="filter-btn active" data-filter="all">Все</button>
+        <button class="filter-btn" data-filter="SUM">Лето</button>
+        <button class="filter-btn" data-filter="WIN">Зима</button>
+        <button class="filter-btn" data-filter="DEM">Демисезон</button>
+        <button class="filter-btn" data-filter="ANY">Любой сезон</button>
+    </div>
+
+    {% if items %}
+    <div class="items-grid">
+        {% for item in items %}
+        {# ВАЖНО: Добавляем data-атрибут с сезоном к карточке #}
+        <a href="{% url 'clothes:item_detail' item.pk %}" class="item-card" data-season="{{ item.season }}">
+            {% if item.image %}
+            <img src="{{ item.image.url }}" alt="{{ item.name }}" class="item-card__image">
+            {% endif %}
+            <div class="item-card__body">
+                <h3 class="item-card__name">{{ item.name }}</h3>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+    <nav class="pagination-container" aria-label="Page navigation">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; Назад</a></li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">&laquo; Назад</span></li>
+            {% endif %}
+            <li class="page-item active"><span class="page-link">Стр. {{ page_obj.number }} из {{ paginator.num_pages }}</span></li>
+            {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперед &raquo;</a></li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">Вперед &raquo;</span></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+
+    {% else %}
+    <div class="placeholder">
+        <h3>В вашем гардеробе пока пусто</h3>
+        <p>Начните с добавления своей первой вещи, чтобы увидеть ее здесь.</p>
+        <a href="{% url 'clothes:item_create' %}" class="btn">Добавить первую вещь</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

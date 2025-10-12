@@ -1,0 +1,14 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Wardrobe - Your Digital Closet{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">WARDROBE</h1>
+        <p class="hero-subtitle">Управляйте своей одеждой, создавайте стильные образы и забудьте о хаосе в шкафу.</p>
+        <a href="{% if user.is_authenticated %}{% url 'clothes:item_list' %}{% else %}{% url 'users:signup' %}{% endif %}" class="btn">Начать пользоваться</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+﻿{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="detail-container">
+        <div class="detail-image-wrapper">
+            {% if object.image %}
+            <img src="{{ object.image.url }}" alt="{{ object.name }}">
+            {% endif %}
+        </div>
+
+        <div class="detail-info-wrapper">
+            <h1>{{ object.name }}</h1>
+
+            <div class="detail-specs">
+                <div class="spec-item">
+                    <span>Цвет</span>
+                    <span>{{ object.color|default:"Не указан" }}</span>
+                </div>
+                <div class="spec-item">
+                    <span>Сезон</span>
+                    <span>{{ object.get_season_display }}</span>
+                </div>
+                <div class="spec-item">
+                    <span>Добавлено</span>
+                    <span>{{ object.created_at|date:"d M Y" }}</span>
+                </div>
+            </div>
+
+            <div class="detail-actions">
+                <a href="{% url 'clothes:item_update' object.pk %}" class="btn">Редактировать</a>
+                <a href="{% url 'clothes:item_delete' object.pk %}" class="btn btn-secondary">Удалить</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

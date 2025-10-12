@@ -1,0 +1,518 @@
+﻿/* static/css/style.css */
+
+/* =============================================== */
+/* 1. ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ (ТЕМА 'LUXURY')
+/* =============================================== */
+:root {
+    --primary-color: #1a1a1a;
+    --background-color: #ffffff;
+    --secondary-color: #f5f5f5;
+    --border-color: #eaeaea;
+    --text-color-light: #888888;
+    --danger-color: #c0392b;
+    --font-family-base: 'Inter', sans-serif;
+    --font-family-heading: 'Playfair Display', serif;
+    --border-radius: 0px;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* =============================================== */
+/* 2. СБРОС И ОСНОВНЫЕ СТИЛИ
+/* =============================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-heading);
+    font-weight: 700;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+    a:hover {
+        text-decoration: none;
+        opacity: 0.7;
+    }
+
+/* =============================================== */
+/* 3. ШАПКА И ПОДВАЛ (HEADER & FOOTER)
+/* =============================================== */
+.main-header {
+    background-color: var(--background-color);
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+    .main-header .container, .main-nav {
+        display: flex;
+        align-items: center;
+    }
+
+    .main-header .container {
+        justify-content: space-between;
+    }
+
+.logo {
+    font-family: var(--font-family-base);
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.main-nav {
+    gap: 1.5rem;
+}
+
+    .main-nav a, .logout-form button {
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: var(--font-family-base);
+        color: var(--primary-color);
+    }
+
+.main-footer {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    color: var(--text-color-light);
+    font-size: 0.9rem;
+}
+
+/* =============================================== */
+/* 4. КНОПКИ (BUTTONS)
+/* =============================================== */
+.btn, .nav-button-primary {
+    display: inline-block;
+    padding: 1rem 2rem;
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    font-family: var(--font-family-base);
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-button-primary, .btn {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+}
+
+    .nav-button-primary:hover, .btn:hover {
+        background-color: var(--background-color);
+        color: var(--primary-color);
+    }
+
+    .btn.btn-secondary {
+        background-color: var(--background-color);
+        color: var(--primary-color);
+    }
+
+        .btn.btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+        }
+
+.nav-button-secondary, .logout-form button {
+    border: none !important;
+    padding: 0 !important;
+}
+
+/* =============================================== */
+/* 5. ОСНОВНОЙ КОНТЕНТ И МАКЕТ
+/* =============================================== */
+.main-content {
+    background-color: var(--background-color);
+}
+
+.hero-section {
+    background-color: var(--secondary-color);
+    padding: 6rem 1rem;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto 2.5rem auto;
+    color: var(--text-color-light);
+}
+
+/* =============================================== */
+/* 6. ФОРМЫ
+/* =============================================== */
+.main-content-form {
+    padding: 4rem 1rem;
+}
+
+.form-container-minimal {
+    max-width: 600px;
+    margin: 0 auto;
+    padding-bottom: 4rem;
+}
+
+    .form-container-minimal h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+    }
+
+.form-field {
+    margin-bottom: 2rem;
+}
+
+    .form-field label {
+        display: block;
+        margin-bottom: 0.75rem;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--text-color-light);
+    }
+
+    .form-field input[type="text"], .form-field input[type="email"], .form-field input[type="password"], .form-field select, .form-field textarea {
+        width: 100%;
+        padding: 0.8rem 0;
+        border-radius: 0;
+        border: none;
+        border-bottom: 1px solid var(--border-color);
+        background-color: transparent;
+        color: var(--primary-color);
+        font-family: var(--font-family-base);
+        font-size: 1rem;
+        transition: border-color 0.2s;
+    }
+
+        .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+    .form-field small {
+        display: block;
+        margin-top: 0.75rem;
+        font-size: 0.8rem;
+        color: var(--text-color-light);
+        line-height: 1.5;
+    }
+
+.form-error {
+    color: var(--danger-color);
+    font-size: 0.85em;
+    margin-top: 0.5rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.form-submit-btn {
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.form-footer-link {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+}
+
+    .form-footer-link a {
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+/* =============================================== */
+/* 7. КАРТОЧКИ (ВЕЩИ И ОБРАЗЫ)
+/* =============================================== */
+.page-header {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.5rem;
+}
+
+    .page-header h2 {
+        font-size: 2rem;
+    }
+
+.items-grid, .outfits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding-bottom: 4rem;
+}
+
+.outfits-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.item-card, .outfit-card {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+    .item-card > a, .outfit-card > a {
+        display: block;
+        text-decoration: none;
+    }
+
+    .item-card:hover, .outfit-card:hover {
+        box-shadow: var(--shadow);
+    }
+
+.item-card__image {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    display: block;
+}
+
+.item-card__body {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.item-card__name {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+.outfit-card__images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 300px;
+    background-color: var(--secondary-color);
+}
+
+.outfit-card__image-item {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.outfit-card__body {
+    padding: 1.5rem;
+}
+
+.outfit-card__name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-family: var(--font-family-heading);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.outfit-card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+}
+
+.outfit-card__item-count {
+    color: var(--text-color-light);
+}
+
+.card-action-btn {
+    color: var(--text-color-light);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.8rem;
+    transition: color 0.2s ease;
+}
+
+    .card-action-btn:hover {
+        color: var(--danger-color);
+        opacity: 1;
+    }
+
+/* =============================================== */
+/* 8. ФИЛЬТРЫ И ПАГИНАЦИЯ
+/* =============================================== */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.5rem;
+}
+
+.filter-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--background-color);
+    color: var(--text-color-light);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+    .filter-btn:hover {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+    }
+
+    .filter-btn.active {
+        background-color: var(--primary-color);
+        color: var(--background-color);
+        border-color: var(--primary-color);
+    }
+
+.pagination-container {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination {
+    display: flex;
+    list-style-type: none;
+    gap: 0.5rem;
+}
+
+.page-item .page-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    color: var(--primary-color);
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.page-item.disabled .page-link {
+    color: var(--text-color-light);
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--background-color);
+    pointer-events: none;
+}
+
+.page-item:not(.disabled) .page-link:hover {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    text-decoration: none;
+}
+
+/* ... прочие стили ... */
+
+/* =============================================== */
+/* 11. АДАПТИВНОСТЬ (MEDIA QUERIES)
+/* =============================================== */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    /* Упрощаем шапку */
+    .main-header .container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .main-nav {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+        .main-nav a, .logout-form button {
+            margin-left: 0;
+        }
+
+    /* Уменьшаем заголовки */
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .form-container-minimal h2 {
+        font-size: 2rem;
+    }
+
+    .page-header h2 {
+        font-size: 1.8rem;
+    }
+
+    /* Сетки в одну колонку */
+    .items-grid, .outfits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Уменьшаем отступы */
+    .main-content, .main-content-form {
+        padding: 2rem 1rem;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}

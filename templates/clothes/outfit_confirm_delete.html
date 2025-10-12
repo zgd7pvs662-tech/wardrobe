@@ -1,0 +1,20 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Подтверждение удаления образа{% endblock %}
+
+{% block content %}
+<div class="main-content-form">
+    <div class="form-container-minimal confirmation-box">
+        <h2>Удаление образа</h2>
+        <p>Вы уверены, что хотите безвозвратно удалить образ: <strong>"{{ object.name }}"</strong>?</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="confirmation-actions">
+                <a href="{% url 'clothes:outfit_list' %}" class="btn btn-secondary">Отмена</a>
+                <button type="submit" class="btn">Да, удалить</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

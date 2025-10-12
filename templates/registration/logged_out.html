@@ -1,0 +1,13 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Вы вышли{% endblock %}
+
+{% block content %}
+<div class.="main-content-form">
+    <div class="form-container-minimal" style="text-align: center;">
+        <h2>Вы успешно вышли.</h2>
+        <p style="margin-bottom: 2rem;">Надеемся скоро увидеть вас снова.</p>
+        <a href="{% url 'login' %}" class="btn">Войти снова</a>
+    </div>
+</div>
+{% endblock %}

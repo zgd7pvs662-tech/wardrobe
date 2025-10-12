@@ -1,0 +1,20 @@
+﻿# Wardrobe1/urls.py
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    
+    # Наши приложения
+    path('', include('clothes.urls')),
+    path('users/', include('users.urls')),
+
+    # Встроенная система аутентификации Django.
+    # Она будет использовать наши шаблоны в `templates/registration/`
+    path('accounts/', include('django.contrib.auth.urls')),
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,67 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {% if object %}
+        Редактирование образа: {{ object.name }}
+    {% else %}
+        Создать новый образ
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="main-content-form">
+    <div class="form-container-minimal">
+        <h2>
+            {% if object %}
+            Редактирование Образа
+            {% else %}
+            Новый Образ
+            {% endif %}
+        </h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <div class="form-field">
+                <label for="{{ form.name.id_for_label }}">Название образа</label>
+                {{ form.name }}
+                {{ form.name.errors }}
+            </div>
+
+            <div class="form-field">
+                <label for="{{ form.description.id_for_label }}">Описание</label>
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
+
+            <div class="form-field">
+                <label>Выберите вещи для образа</label>
+                {{ form.items.errors }}
+                <div class="item-selector-grid">
+
+                    {% for item in form.items.field.queryset %}
+                    <label class="item-selector-label">
+                        {# ВАЖНО: Добавлена проверка, чтобы отмечать уже выбранные вещи #}
+                        <input type="checkbox" name="{{ form.items.name }}" value="{{ item.pk }}" id="id_items_{{ item.pk }}" {% if item in form.instance.items.all %}checked{% endif %}>
+                        <div class="item-selector-card">
+                            <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                            <div class="item-selector-card__name">{{ item.name|truncatechars:20 }}</div>
+                        </div>
+                    </label>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+            <button type="submit" class="btn form-submit-btn">
+                {% if object %}
+                Сохранить изменения
+                {% else %}
+                Сохранить образ
+                {% endif %}
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

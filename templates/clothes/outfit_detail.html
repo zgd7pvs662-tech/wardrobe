@@ -1,0 +1,41 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ outfit.name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="detail-container">
+        <div class="detail-info-wrapper">
+            <h1>{{ outfit.name }}</h1>
+            {% if outfit.description %}
+            <p class="outfit-description">{{ outfit.description }}</p>
+            {% endif %}
+            <div class="detail-actions">
+                <a href="{% url 'clothes:outfit_update' outfit.pk %}" class="btn">Редактировать</a>
+                <a href="{% url 'clothes:outfit_delete' outfit.pk %}" class="btn btn-secondary">Удалить</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="padding-top: 3rem;">
+        <h2 class="section-title">Вещи в этом образе</h2>
+        {% if outfit.items.all %}
+        <div class="items-grid">
+            {% for item in outfit.items.all %}
+            <a href="{% url 'clothes:item_detail' item.pk %}" class="item-card">
+                {% if item.image %}
+                <img src="{{ item.image.url }}" alt="{{ item.name }}" class="item-card__image">
+                {% endif %}
+                <div class="item-card__body">
+                    <h3 class="item-card__name">{{ item.name }}</h3>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>В этом образе пока нет вещей.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

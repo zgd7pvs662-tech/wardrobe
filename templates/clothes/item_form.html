@@ -1,0 +1,72 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {% if object %}
+        Редактирование: {{ object.name }}
+    {% else %}
+        Добавить новую вещь
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="main-content-form">
+    <div class="form-container-minimal">
+        <h2>
+            {% if object %}
+            Редактирование Вещи
+            {% else %}
+            Новая Вещь
+            {% endif %}
+        </h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+            <div class="form-field">
+                <label for="{{ form.name.id_for_label }}">Название</label>
+                {{ form.name }}
+                {{ form.name.errors }}
+            </div>
+
+            <div class="form-field">
+                <label for="{{ form.category.id_for_label }}">Категория</label>
+                {{ form.category }}
+                {{ form.category.errors }}
+            </div>
+
+            <div class="form-field">
+                <label for="{{ form.image.id_for_label }}">Фотография</label>
+                {{ form.image }}
+                {% if object.image %}
+                <small>Текущее фото: <a href="{{ object.image.url }}" target="_blank">посмотреть</a></small>
+                {% endif %}
+                {{ form.image.errors }}
+            </div>
+
+            <div class="form-grid">
+                <div class="form-field">
+                    <label for="{{ form.color.id_for_label }}">Цвет</label>
+                    {{ form.color }}
+                    {{ form.color.errors }}
+                </div>
+                <div class="form-field">
+                    <label for="{{ form.season.id_for_label }}">Сезон</label>
+                    {{ form.season }}
+                    {{ form.season.errors }}
+                </div>
+            </div>
+
+            <button type="submit" class="btn form-submit-btn">
+                {% if object %}
+                Сохранить
+                {% else %}
+                Добавить
+                {% endif %}
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
