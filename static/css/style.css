@@ -1,5 +1,7 @@
 ﻿/* static/css/style.css */
 
+/* static/css/style.css */
+
 /* =============================================== */
 /* 1. ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ (ТЕМА 'LUXURY')
 /* =============================================== */
@@ -101,14 +103,6 @@ a {
         color: var(--primary-color);
     }
 
-.main-footer {
-    padding: 3rem 0;
-    border-top: 1px solid var(--border-color);
-    text-align: center;
-    color: var(--text-color-light);
-    font-size: 0.9rem;
-}
-
 /* =============================================== */
 /* 4. КНОПКИ (BUTTONS)
 /* =============================================== */
@@ -162,7 +156,7 @@ a {
 
 .hero-section {
     background-color: var(--secondary-color);
-    padding: 6rem 1rem;
+    padding: 8rem 2rem;
     text-align: center;
 }
 
@@ -172,7 +166,7 @@ a {
 }
 
 .hero-title {
-    font-size: 3.5rem;
+    font-size: 4rem;
     margin-bottom: 1rem;
 }
 
@@ -187,7 +181,7 @@ a {
 /* 6. ФОРМЫ
 /* =============================================== */
 .main-content-form {
-    padding: 4rem 1rem;
+    padding: 4rem 2rem;
 }
 
 .form-container-minimal {
@@ -198,7 +192,7 @@ a {
 
     .form-container-minimal h2 {
         text-align: center;
-        font-size: 2.5rem;
+        font-size: 3rem;
         margin-bottom: 3rem;
     }
 
@@ -270,118 +264,65 @@ a {
     }
 
 /* =============================================== */
-/* 7. КАРТОЧКИ (ВЕЩИ И ОБРАЗЫ)
+/* 7. ФОРМА ВЫБОРА ВЕЩЕЙ (OUTFIT FORM)
 /* =============================================== */
-.page-header {
-    margin: 2rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 1.5rem;
-}
-
-    .page-header h2 {
-        font-size: 2rem;
-    }
-
-.items-grid, .outfits-grid {
+.item-selector-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
-    padding-bottom: 4rem;
-}
-
-.outfits-grid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-}
-
-.item-card, .outfit-card {
-    background-color: var(--background-color);
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 1rem;
     border: 1px solid var(--border-color);
-    overflow: hidden;
-    transition: box-shadow 0.3s ease;
 }
 
-    .item-card > a, .outfit-card > a {
-        display: block;
-        text-decoration: none;
-    }
+.item-selector-label input[type="checkbox"] {
+    display: none;
+}
 
-    .item-card:hover, .outfit-card:hover {
-        box-shadow: var(--shadow);
-    }
+.item-selector-card {
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid var(--border-color);
+    transition: border-color 0.2s ease;
+    position: relative;
+}
 
-.item-card__image {
+.item-selector-label input[type="checkbox"]:checked + .item-selector-card {
+    border-color: var(--primary-color);
+}
+
+.item-selector-card img {
     width: 100%;
-    height: 350px;
+    height: 180px;
     object-fit: cover;
     display: block;
 }
 
-.item-card__body {
-    padding: 1.5rem;
-    text-align: center;
-}
-
-.item-card__name {
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: var(--primary-color);
-}
-
-.outfit-card__images {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: 300px;
-    background-color: var(--secondary-color);
-}
-
-.outfit-card__image-item {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.outfit-card__body {
-    padding: 1.5rem;
-}
-
-.outfit-card__name {
-    font-size: 1.2rem;
-    font-weight: 700;
-    font-family: var(--font-family-heading);
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.outfit-card__footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.9rem;
-    border-top: 1px solid var(--border-color);
-    margin-top: 1.5rem;
-    padding-top: 1rem;
-}
-
-.outfit-card__item-count {
-    color: var(--text-color-light);
-}
-
-.card-action-btn {
-    color: var(--text-color-light);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+.item-selector-card__name {
     font-size: 0.8rem;
-    transition: color 0.2s ease;
+    text-align: center;
+    padding: 0.5rem;
+    background: white;
 }
 
-    .card-action-btn:hover {
-        color: var(--danger-color);
-        opacity: 1;
-    }
+.item-selector-label input[type="checkbox"]:checked + .item-selector-card::after {
+    content: '✓';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: var(--primary-color);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+}
 
 /* =============================================== */
 /* 8. ФИЛЬТРЫ И ПАГИНАЦИЯ

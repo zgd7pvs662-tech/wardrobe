@@ -42,7 +42,6 @@
 
                     {% for item in form.items.field.queryset %}
                     <label class="item-selector-label">
-                        {# ВАЖНО: Добавлена проверка, чтобы отмечать уже выбранные вещи #}
                         <input type="checkbox" name="{{ form.items.name }}" value="{{ item.pk }}" id="id_items_{{ item.pk }}" {% if item in form.instance.items.all %}checked{% endif %}>
                         <div class="item-selector-card">
                             <img src="{{ item.image.url }}" alt="{{ item.name }}">
