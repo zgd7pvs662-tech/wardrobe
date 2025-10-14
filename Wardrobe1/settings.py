@@ -2,6 +2,7 @@
 
 from pathlib import Path
 import os # <-- ДОБАВЛЕНО: для работы с переменными окружения
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
