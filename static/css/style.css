@@ -1,17 +1,17 @@
 ﻿/* static/css/style.css */
 
-/* static/css/style.css */
-
 /* =============================================== */
 /* 1. ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ (ТЕМА 'LUXURY')
 /* =============================================== */
 :root {
+    /* Цвета */
     --primary-color: #1a1a1a;
     --background-color: #ffffff;
-    --secondary-color: #f5f5f5;
+    --secondary-color: #f5f5f5; /* Светло-серый фон */
     --border-color: #eaeaea;
     --text-color-light: #888888;
     --danger-color: #c0392b;
+    /* Шрифты */
     --font-family-base: 'Inter', sans-serif;
     --font-family-heading: 'Playfair Display', serif;
     --border-radius: 0px;
@@ -70,29 +70,28 @@ a {
     z-index: 100;
 }
 
-    .main-header .container, .main-nav {
-        display: flex;
-        align-items: center;
-    }
-
     .main-header .container {
+        display: flex;
         justify-content: space-between;
+        align-items: center;
     }
 
 .logo {
     font-family: var(--font-family-base);
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
 
 .main-nav {
-    gap: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
 }
 
     .main-nav a, .logout-form button {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         font-weight: 500;
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -103,12 +102,21 @@ a {
         color: var(--primary-color);
     }
 
+.main-footer {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    color: var(--text-color-light);
+    font-size: 0.9rem;
+    background-color: var(--background-color);
+}
+
 /* =============================================== */
 /* 4. КНОПКИ (BUTTONS)
 /* =============================================== */
 .btn, .nav-button-primary {
     display: inline-block;
-    padding: 1rem 2rem;
+    padding: 1rem 2.5rem;
     border: 1px solid var(--primary-color);
     border-radius: var(--border-radius);
     font-family: var(--font-family-base);
@@ -119,7 +127,7 @@ a {
     text-decoration: none;
     text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .nav-button-primary, .btn {
@@ -130,6 +138,8 @@ a {
     .nav-button-primary:hover, .btn:hover {
         background-color: var(--background-color);
         color: var(--primary-color);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
     }
 
     .btn.btn-secondary {
@@ -209,7 +219,11 @@ a {
         color: var(--text-color-light);
     }
 
-    .form-field input[type="text"], .form-field input[type="email"], .form-field input[type="password"], .form-field select, .form-field textarea {
+    .form-field input[type="text"],
+    .form-field input[type="email"],
+    .form-field input[type="password"],
+    .form-field select,
+    .form-field textarea {
         width: 100%;
         padding: 0.8rem 0;
         border-radius: 0;
@@ -263,66 +277,313 @@ a {
         text-decoration: underline;
     }
 
+.confirmation-box {
+    text-align: center;
+}
+
+    .confirmation-box p {
+        margin-bottom: 2rem;
+    }
+
+.confirmation-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
 /* =============================================== */
-/* 7. ФОРМА ВЫБОРА ВЕЩЕЙ (OUTFIT FORM)
+/* 6.5. СТИЛИ ДЛЯ ФОРМЫ ВЫБОРА ВЕЩЕЙ
 /* =============================================== */
 .item-selector-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 1rem;
     margin-top: 1rem;
-    max-height: 400px;
-    overflow-y: auto;
-    padding: 1rem;
-    border: 1px solid var(--border-color);
 }
 
 .item-selector-label input[type="checkbox"] {
-    display: none;
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
 .item-selector-card {
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
     overflow: hidden;
     cursor: pointer;
-    border: 2px solid var(--border-color);
-    transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
     position: relative;
+}
+
+    .item-selector-card:hover {
+        border-color: #cccccc;
+    }
+
+    .item-selector-card img {
+        display: block;
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
+
+.item-selector-card__name {
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    text-align: center;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 .item-selector-label input[type="checkbox"]:checked + .item-selector-card {
     border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-color);
 }
 
-.item-selector-card img {
+    .item-selector-label input[type="checkbox"]:checked + .item-selector-card::after {
+        content: '✔';
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 24px;
+        height: 24px;
+        background-color: var(--primary-color);
+        color: var(--background-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        line-height: 1;
+    }
+/* =============================================== */
+/* 6.6. СТИЛИ ДЛЯ КАСТОМНОГО ПОЛЯ ВЫБОРА ФАЙЛА */
+/* =============================================== */
+
+.file-upload-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Отступ между кнопкой и именем файла */
+}
+
+    /* Прячем настоящий input[type=file] максимально надежно */
+    .file-upload-wrapper input[type="file"] {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+/* Стилизуем наш label, чтобы он выглядел как кнопка */
+.file-upload-label {
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    display: inline-block;
+}
+
+    .file-upload-label:hover {
+        transform: none; /* Отключаем эффекты основной кнопки при наведении */
+        box-shadow: none;
+    }
+
+/* Стили для текста с именем файла */
+.file-upload-filename {
+    color: var(--text-color-light);
+    font-family: var(--font-family-base);
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+}
+/* ======================================================= */
+/* 6.7. СТИЛИ ДЛЯ ПРЕДПРОСМОТРА ФОТО В ФОРМЕ РЕДАКТИРОВАНИЯ */
+/* ======================================================= */
+
+.current-image-preview {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+}
+
+    .current-image-preview p {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--text-color-light);
+        margin-bottom: 1rem;
+    }
+
+    .current-image-preview img {
+        display: block;
+        max-width: 200px; /* Ограничиваем размер миниатюры */
+        height: auto;
+        margin-bottom: 1rem;
+        border: 4px solid var(--background-color);
+        box-shadow: var(--shadow);
+    }
+
+.clear-image-checkbox {
+    font-size: 0.9rem;
+    color: var(--primary-color);
+}
+
+/* Скрываем ненужный стандартный HTML от Django */
+.file-upload-wrapper input[type="file"] + br + label {
+    display: none;
+}
+/* =============================================== */
+/* 7. КАРТОЧКИ И СТРАНИЦЫ
+/* =============================================== */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.5rem;
+    margin-top: 4rem;
+    margin-bottom: 3rem;
+}
+
+    .page-header h2 {
+        font-size: 2.5rem;
+    }
+
+.items-grid, .outfits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding-bottom: 4rem;
+}
+
+.outfits-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+
+.item-card, .outfit-card {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+    .item-card > a, .outfit-card > a {
+        display: block;
+        text-decoration: none;
+    }
+
+    .item-card:hover, .outfit-card:hover {
+        box-shadow: var(--shadow);
+        transform: translateY(-5px);
+    }
+
+.item-card__image {
     width: 100%;
-    height: 180px;
+    height: 350px;
     object-fit: cover;
     display: block;
 }
 
-.item-selector-card__name {
-    font-size: 0.8rem;
+.item-card__body {
+    padding: 1.5rem;
     text-align: center;
-    padding: 0.5rem;
-    background: white;
 }
 
-.item-selector-label input[type="checkbox"]:checked + .item-selector-card::after {
-    content: '✓';
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background-color: var(--primary-color);
-    color: white;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: bold;
+.item-card__name {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--primary-color);
 }
+
+/* =============================================== */
+/* 7.5. СТИЛИ ДЛЯ ПУСТЫХ СТРАНИЦ 
+/* =============================================== */
+.empty-state-message {
+    text-align: center;
+    padding: 5rem 2rem;
+    border: 1px dashed var(--border-color);
+    background-color: var(--secondary-color);
+    margin-top: 2rem;
+    grid-column: 1 / -1;
+}
+
+    .empty-state-message h3 {
+        margin-bottom: 1rem;
+    }
+
+    .empty-state-message p {
+        color: var(--text-color-light);
+        font-size: 1.1rem;
+        margin: 0;
+    }
+
+/* =============================================== */
+/* 7.6. СТИЛИ ДЛЯ КАРТОЧЕК ОБРАЗОВ
+/* =============================================== */
+.outfit-card__images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: 320px;
+    background-color: var(--secondary-color);
+}
+
+.outfit-card__image-item {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 2px solid var(--background-color);
+}
+
+.outfit-card__image-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: var(--secondary-color);
+    border: 2px solid var(--background-color);
+}
+
+.outfit-card__body {
+    padding: 1.5rem;
+}
+
+.outfit-card__name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-family: var(--font-family-base);
+    text-align: center;
+}
+
+.outfit-card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.outfit-card__item-count {
+    font-size: 0.9rem;
+    color: var(--text-color-light);
+}
+
+.card-action-btn {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--danger-color);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+    .card-action-btn:hover {
+        opacity: 0.7;
+        text-decoration: underline;
+    }
 
 /* =============================================== */
 /* 8. ФИЛЬТРЫ И ПАГИНАЦИЯ
@@ -398,33 +659,101 @@ a {
     text-decoration: none;
 }
 
-/* ... прочие стили ... */
+/* =============================================== */
+/* 9. СТРАНИЦА ДЕТАЛЕЙ
+/* =============================================== */
+.detail-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem;
+    align-items: start;
+    padding: 4rem 0;
+}
+
+.detail-image-wrapper {
+    width: 100%;
+    position: sticky;
+    top: 120px;
+}
+
+    .detail-image-wrapper img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: 80vh;
+        object-fit: contain;
+        background-color: var(--secondary-color);
+    }
+
+.detail-info-wrapper h1 {
+    font-size: 3rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.2;
+}
+
+.detail-specs {
+    margin-bottom: 3rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.spec-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+    .spec-item span:first-child {
+        color: var(--text-color-light);
+    }
+
+    .spec-item span:last-child {
+        font-weight: 500;
+        text-align: right;
+    }
+
+.detail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
 
 /* =============================================== */
 /* 11. АДАПТИВНОСТЬ (MEDIA QUERIES)
 /* =============================================== */
+@media (max-width: 992px) {
+    .detail-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2rem 0;
+    }
+
+    .detail-image-wrapper {
+        position: static;
+    }
+
+    .detail-info-wrapper h1 {
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 0 1rem;
     }
 
-    /* Упрощаем шапку */
     .main-header .container {
         flex-direction: column;
         gap: 1rem;
     }
 
     .main-nav {
-        gap: 1rem;
+        gap: 1.5rem;
         flex-wrap: wrap;
         justify-content: center;
     }
 
-        .main-nav a, .logout-form button {
-            margin-left: 0;
-        }
-
-    /* Уменьшаем заголовки */
     .hero-title {
         font-size: 2.5rem;
     }
@@ -433,11 +762,18 @@ a {
         font-size: 2rem;
     }
 
-    .page-header h2 {
-        font-size: 1.8rem;
+    .page-header {
+        margin-top: 2.5rem;
+        margin-bottom: 2rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
     }
 
-    /* Сетки в одну колонку */
+        .page-header h2 {
+            font-size: 1.8rem;
+        }
+
     .items-grid, .outfits-grid {
         grid-template-columns: 1fr;
     }
@@ -446,14 +782,7 @@ a {
         grid-template-columns: 1fr;
     }
 
-    /* Уменьшаем отступы */
     .main-content, .main-content-form {
         padding: 2rem 1rem;
-    }
-
-    .page-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
     }
 }

@@ -3,13 +3,12 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-j!w6h76r6-g5!d_6w+g12f=e#+x9j=8d3v$t0@g3v#c' # ВАЖНО: На реальном проекте этот ключ нужно хранить в секрете!
+SECRET_KEY = 'django-insecure-j!w6h76r6-g5!d_6w+g12f=e#+x9j=8d3v$t0@g3v#c'
 
-# --- ИЗМЕНЕНИЯ ДЛЯ РАЗВЕРТЫВАНИЯ ---
-DEBUG = False # Отключаем режим отладки на сервере!
+# --- ВОЗВРАЩАЕМ НАСТРОЙКИ ДЛЯ ЛОКАЛЬНОЙ РАЗРАБОТКИ ---
+DEBUG = True
 
-# Здесь будет адрес твоего сайта на PythonAnywhere и твой домен
-ALLOWED_HOSTS = ['твое-имя.pythonanywhere.com', 'www.твой-домен.kz', 'твой-домен.kz'] 
+ALLOWED_HOSTS = ['*'] # '*' позволяет заходить с любого адреса, включая localhost
 # --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
 
@@ -92,7 +91,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
-STATIC_ROOT = BASE_DIR / 'staticfiles' # Изменено для хостинга
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'

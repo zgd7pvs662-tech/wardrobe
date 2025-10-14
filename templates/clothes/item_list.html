@@ -11,52 +11,56 @@
     </div>
 
     <div class="filters">
-        <button class="filter-btn active" data-filter="all">Все</button>
-        <button class="filter-btn" data-filter="SUM">Лето</button>
-        <button class="filter-btn" data-filter="WIN">Зима</button>
-        <button class="filter-btn" data-filter="DEM">Демисезон</button>
-        <button class="filter-btn" data-filter="ANY">Любой сезон</button>
+        <a href="{% url 'clothes:item_list' %}"
+           class="filter-btn {% if not current_season or current_season == 'all' %}active{% endif %}">
+            Все
+        </a>
+
+        {# Используем 'SUM', 'WIN', 'DEM', 'ANY' в соответствии с models.py #}
+        <a href="?season=SUM"
+           class="filter-btn {% if current_season == 'SUM' %}active{% endif %}">
+            Лето
+        </a>
+
+        <a href="?season=WIN"
+           class="filter-btn {% if current_season == 'WIN' %}active{% endif %}">
+            Зима
+        </a>
+
+        <a href="?season=DEM"
+           class="filter-btn {% if current_season == 'DEM' %}active{% endif %}">
+            Демисезон
+        </a>
+
+        <a href="?season=ANY"
+           class="filter-btn {% if current_season == 'ANY' %}active{% endif %}">
+            Любой сезон
+        </a>
     </div>
 
-    {% if items %}
     <div class="items-grid">
         {% for item in items %}
-        {# ВАЖНО: Добавляем data-атрибут с сезоном к карточке #}
-        <a href="{% url 'clothes:item_detail' item.pk %}" class="item-card" data-season="{{ item.season }}">
-            {% if item.image %}
-            <img src="{{ item.image.url }}" alt="{{ item.name }}" class="item-card__image">
+        <div class="item-card">
+            <a href="{% url 'clothes:item_detail' item.pk %}">
+                {% if item.image %}
+                <img src="{{ item.image.url }}" alt="{{ item.name }}" class="item-card__image">
+                {% endif %}
+                <div class="item-card__body">
+                    <h3 class="item-card__name">{{ item.name }}</h3>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <div class="empty-state-message">
+            <h3>Здесь пока пусто</h3>
+            {% if not current_season or current_season == 'all' %}
+            <p>Добавьте свою первую вещь в гардероб, чтобы увидеть её здесь.</p>
+            {% else %}
+            <p>Похоже, у вас нет вещей для выбранного сезона.</p>
             {% endif %}
-            <div class="item-card__body">
-                <h3 class="item-card__name">{{ item.name }}</h3>
-            </div>
-        </a>
+        </div>
         {% endfor %}
     </div>
 
-    {% if is_paginated %}
-    <nav class="pagination-container" aria-label="Page navigation">
-        <ul class="pagination">
-            {% if page_obj.has_previous %}
-            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; Назад</a></li>
-            {% else %}
-            <li class="page-item disabled"><span class="page-link">&laquo; Назад</span></li>
-            {% endif %}
-            <li class="page-item active"><span class="page-link">Стр. {{ page_obj.number }} из {{ paginator.num_pages }}</span></li>
-            {% if page_obj.has_next %}
-            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперед &raquo;</a></li>
-            {% else %}
-            <li class="page-item disabled"><span class="page-link">Вперед &raquo;</span></li>
-            {% endif %}
-        </ul>
-    </nav>
-    {% endif %}
-
-    {% else %}
-    <div class="placeholder">
-        <h3>В вашем гардеробе пока пусто</h3>
-        <p>Начните с добавления своей первой вещи, чтобы увидеть ее здесь.</p>
-        <a href="{% url 'clothes:item_create' %}" class="btn">Добавить первую вещь</a>
-    </div>
-    {% endif %}
 </div>
 {% endblock %}

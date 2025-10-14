@@ -38,14 +38,29 @@
             </div>
 
             <div class="form-field">
-                <label for="{{ form.image.id_for_label }}">Фотография</label>
-                {{ form.image }}
-                {% if object.image %}
-                <small>Текущее фото: <a href="{{ object.image.url }}" target="_blank">посмотреть</a></small>
-                {% endif %}
+                <label>Фотография</label>
                 {{ form.image.errors }}
-            </div>
 
+                {% if object.image %}
+                <div class="current-image-preview">
+                    <p>Текущее фото:</p>
+                    <img src="{{ object.image.url }}" alt="Текущее фото">
+
+                    <div class="clear-image-checkbox">
+                        {{ form.image.clear_checkbox_label }}: {{ form.image.clear }}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="file-upload-wrapper">
+                    <label for="id_image" class="file-upload-label btn btn-secondary">
+                        <span>{% if object.image %}Изменить файл{% else %}Выбрать файл{% endif %}</span>
+                    </label>
+                    <span class="file-upload-filename">{% if not object.image %}Файл не выбран{% endif %}</span>
+
+                    <div style="display: none;">{{ form.image.input }}</div>
+                </div>
+            </div>
             <div class="form-grid">
                 <div class="form-field">
                     <label for="{{ form.color.id_for_label }}">Цвет</label>

@@ -1,4 +1,5 @@
 ﻿# clothes/views.py
+
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
@@ -10,6 +11,9 @@ class HomeView(TemplateView):
 
 # --- Views для Вещей (Item) ---
 
+# ==============================================================================
+# ↓↓↓ ЭТОТ БЛОК БЫЛ ИЗМЕНЕН ДЛЯ РАБОТЫ ФИЛЬТРОВ ↓↓↓
+# ==============================================================================
 class ItemListView(LoginRequiredMixin, ListView):
     model = Item
     template_name = 'clothes/item_list.html'
@@ -17,7 +21,32 @@ class ItemListView(LoginRequiredMixin, ListView):
     paginate_by = 12
 
     def get_queryset(self):
-        return Item.objects.filter(user=self.request.user).select_related('category')
+        # Сначала получаем базовый набор данных: все вещи текущего пользователя
+        queryset = super().get_queryset().filter(user=self.request.user)
+        
+        # Получаем значение фильтра 'season' из URL (например, ?season=summer)
+        season_filter = self.request.GET.get('season')
+
+        # Если фильтр был передан в URL и он не пустой/не 'all', применяем его
+        if season_filter and season_filter != 'all':
+            queryset = queryset.filter(season=season_filter)
+        
+        # Возвращаем отфильтрованный (или полный) список, сохранив оптимизацию
+        return queryset.select_related('category')
+
+    def get_context_data(self, **kwargs):
+        # Сначала получаем базовый контекст от родительского класса
+        context = super().get_context_data(**kwargs)
+        
+        # Добавляем в контекст имя текущего фильтра, чтобы подсветить кнопку в HTML
+        # Если параметра 'season' нет, по умолчанию будет 'all'
+        context['current_season'] = self.request.GET.get('season', 'all')
+        
+        return context
+# ==============================================================================
+# ↑↑↑ ИЗМЕНЕНИЯ ЗДЕСЬ ЗАКОНЧИЛИСЬ ↑↑↑
+# ==============================================================================
+
 
 class ItemDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Item
@@ -92,7 +121,6 @@ class OutfitDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         outfit = self.get_object()
         return outfit.user == self.request.user
 
-# --- НОВЫЙ КОД: VIEWS ДЛЯ ПРОСМОТРА И РЕДАКТИРОВАНИЯ ОБРАЗА ---
 class OutfitDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Outfit
     template_name = 'clothes/outfit_detail.html'
