@@ -1,15 +1,26 @@
 ﻿# Wardrobe1/settings.py
+
 from pathlib import Path
+import os # <-- ДОБАВЛЕНО: для работы с переменными окружения
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-j!w6h76r6-g5!d_6w+g12f=e#+x9j=8d3v$t0@g3v#c'
+# ==============================================================================
+# ↓↓↓ ВАЖНЫЕ ИЗМЕНЕНИЯ ДЛЯ БЕЗОПАСНОСТИ И ХОСТИНГА ↓↓↓
+# ==============================================================================
 
-# --- ВОЗВРАЩАЕМ НАСТРОЙКИ ДЛЯ ЛОКАЛЬНОЙ РАЗРАБОТКИ ---
-DEBUG = True
+# Никогда не храните секретный ключ в коде. Мы будем хранить его на сервере.
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-default-key-for-local-dev')
 
-ALLOWED_HOSTS = ['*'] # '*' позволяет заходить с любого адреса, включая localhost
-# --- КОНЕЦ ИЗМЕНЕНИЙ ---
+# DEBUG будет True только на вашем компьютере. На сервере он будет False.
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+
+# На сервере здесь будет ваш домен, а '*' - для локальной разработки
+ALLOWED_HOSTS = ['www.wardrobe-online.ru', 'localhost', '127.0.0.1']
+
+# ==============================================================================
+# ↑↑↑ ИЗМЕНЕНИЯ ЗДЕСЬ ЗАКОНЧИЛИСЬ ↑↑↑
+# ==============================================================================
 
 
 # --- ПРИЛОЖЕНИЯ ---
@@ -27,6 +38,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # --- ДОБАВЛЕНО: Помощник для статических файлов ---
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # --- КОНЕЦ ИЗМЕНЕНИЙ ---
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -92,6 +106,10 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# --- ДОБАВЛЕНО: Настройка для whitenoise ---
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# --- КОНЕЦ ИЗМЕНЕНИЙ ---
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
