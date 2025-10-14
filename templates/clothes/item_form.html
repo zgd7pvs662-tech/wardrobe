@@ -41,24 +41,16 @@
                 <label>Фотография</label>
                 {{ form.image.errors }}
 
-                {% if object.image %}
-                <div class="current-image-preview">
-                    <p>Текущее фото:</p>
-                    <img src="{{ object.image.url }}" alt="Текущее фото">
-
-                    <div class="clear-image-checkbox">
-                        {{ form.image.clear_checkbox_label }}: {{ form.image.clear }}
-                    </div>
-                </div>
-                {% endif %}
-
                 <div class="file-upload-wrapper">
                     <label for="id_image" class="file-upload-label btn btn-secondary">
                         <span>{% if object.image %}Изменить файл{% else %}Выбрать файл{% endif %}</span>
                     </label>
-                    <span class="file-upload-filename">{% if not object.image %}Файл не выбран{% endif %}</span>
 
-                    <div style="display: none;">{{ form.image.input }}</div>
+                    <span class="file-upload-filename">Файл не выбран</span>
+
+                    <div class="original-file-input-container">
+                        {{ form.image }}
+                    </div>
                 </div>
             </div>
             <div class="form-grid">

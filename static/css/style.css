@@ -786,3 +786,7 @@ a {
         padding: 2rem 1rem;
     }
 }
+/* Прячем оригинальный контейнер с виджетом загрузки файла */
+.original-file-input-container {
+    display: none;
+}

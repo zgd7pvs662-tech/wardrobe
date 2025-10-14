@@ -53,7 +53,7 @@
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\app\" />
     <Folder Include="static\css\" />
-    <Folder Include="static\jss\" />
+    <Folder Include="static\js\" />
     <Folder Include="templates\" />
     <Folder Include="static\" />
     <Folder Include="templates\clothes\" />
@@ -93,7 +93,7 @@
     <Content Include="app\templates\app\login.html" />
     <Content Include="app\templates\app\loginpartial.html" />
     <Content Include="static\css\style.css" />
-    <Content Include="static\jss\script.js" />
+    <Content Include="static\js\script.js" />
     <Content Include="templates\base.html" />
     <Content Include="templates\clothes\item_confirm_delete.html" />
     <Content Include="templates\clothes\item_detail.html" />
